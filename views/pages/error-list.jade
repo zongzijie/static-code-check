@@ -1,0 +1,21 @@
+extends ../layout
+block content
+	.container
+		.row
+			table.table.table-hover.table-bordered
+				thead
+					tr
+						th 文件路径
+						th 错误数量
+						th 警告数量
+				tbody
+					each result in results 
+						tr
+							td #{result.filePath}
+							td #{result.errorCount}
+							td #{result.warningCount}
+						each message in result.messages
+							tr
+								td #{message.line}:#{message.column}
+								td #{message.message}
+								td #{message.ruleId}

@@ -1,0 +1,24 @@
+extends ../layout
+block content
+	.container
+		button#btn-register.btn.btn-xs.btn-primary 注册
+	.container
+		.row
+			table.table.table-hover.table-bordered
+				thead
+					tr
+						th 操作
+						th 项目名称
+						th 错误数量
+						th 警告数量
+						th 检查时间
+				tbody
+					each report in reports 
+						tr
+							td
+								button#btn-check.btn.btn-xs.btn-primary(data-id='#{report.projName}') check
+							td #{report.projName}
+							td #{report.errorCount}
+							td #{report.warningCount}
+							td #{report.createdTime}
+

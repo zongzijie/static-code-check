@@ -1,0 +1,12 @@
+extends ../layout
+block content
+	.container
+		.row
+			form(method='post',action='/register/save')
+				label 项目名称
+				input(type='text',name='projName')
+				label 文件夹名称
+				input(type='text',name='dir')
+				label 源代码地址
+				input(type='text',name='sourceCode')
+				input(type='submit')
