@@ -98,5 +98,13 @@
     "static-code-check"
   ],
   "author": "wujj",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zongzijie/static-code-check.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zongzijie/static-code-check/issues"
+  },
+  "homepage": "https://github.com/zongzijie/static-code-check#readme"
 }
