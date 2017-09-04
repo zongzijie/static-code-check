@@ -19,7 +19,7 @@ function start(option) {
     var report = cli.executeOnFiles(['source_code/'+option.dir]);
     var report_id;
     return Report.create({
-        projName:option.projName,
+        projName:option.name,
         dir:option.dir,
         createdTime:new Date(),
         errorCount: report.errorCount,

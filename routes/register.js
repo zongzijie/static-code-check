@@ -7,6 +7,6 @@ router.get('/', function(req, res, next) {
 });
 /* register register listing. */
 router.post('/save', function(req, res, next) {
-   config.save(req.body).then(function(data){res.send(data)});
+   config.proj_save(req.body).then(function(data){res.send(data)});
 });
 module.exports = router;

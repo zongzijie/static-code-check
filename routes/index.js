@@ -3,7 +3,6 @@ var check = require('../services/check');
 var config = require('../services/config');
 var moment = require('moment');
 var _ = require('underscore');
-var Promise = require("bluebird");
 var router = express.Router();
 
 /* GET home page. */
@@ -12,12 +11,16 @@ router.get('/', function(req, res, next) {
         var ajaxArry = [];
          projlist = _.pluck(projList, '_doc');
         _.each(projlist, function(proj) {
-            ajaxArry.push(check.reports(proj.dir));
+            ajaxArry.push(check.reports(proj.dir).then(function(data){
+                  if(data.length==0){
+                    return proj;
+                  }
+                  return data[0]._doc;
+            }));
         });
         return Promise.all(ajaxArry);
     }).then(function(reports){
-         reports = _.pluck(reports[0], '_doc');
-    	res.render('index',{reports:reports});
+    	res.render('index',{title:'static-code-check',reports:reports});
     });
 });
 /* GET error results. */

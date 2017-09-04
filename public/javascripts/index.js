@@ -4,14 +4,14 @@
 		pageReady:function(){
 			var me=this;
 			$("#btn-check").on("click",function(e){
-				me.checkStart(e.target.dataset.id);
+				me.checkStart(e.target.dataset);
 			});
 			$("#btn-register").on("click",function(e){
 				window.open('/register');
 			});
 		},
-		checkStart:function(dir){
-			$.post("/check/"+dir).then(function(id){
+		checkStart:function(data){
+			$.post('check',data).then(function(id){
 					window.location.reload();
 			});
 		}

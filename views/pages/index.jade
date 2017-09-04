@@ -16,8 +16,9 @@ block content
 					each report in reports 
 						tr
 							td
-								button#btn-check.btn.btn-xs.btn-primary(data-id='#{report.projName}') check
-							td #{report.projName}
+								button#btn-check.btn.btn-xs.btn-primary(data-dir='#{report.dir}',data-name='#{report.projName}') check
+							td
+								a(href='/#{report.dir}/#{report._id}/errors',target='_blank') #{report.projName}
 							td #{report.errorCount}
 							td #{report.warningCount}
 							td #{report.createdTime}
