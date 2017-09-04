@@ -1,0 +1,7 @@
+td
+	button.btn-check.btn.btn-xs.btn-primary(data-loading-text="checking...",type="button",data-toggle="button",data-dir='#{report.dir}',data-name='#{report.projName}') check
+td
+	a(href='/#{report.dir}/#{report._id}/errors',target='_blank') #{report.projName}
+td #{report.errorCount}
+td #{report.warningCount}
+td #{report.createdTime}
