@@ -1,5 +1,5 @@
 var express = require('express');
-var config = require('../services/config');
+var project = require('../services/project');
 var router = express.Router();
 /* GET register page. */
 router.get('/', function(req, res, next) {
@@ -7,6 +7,6 @@ router.get('/', function(req, res, next) {
 });
 /* register register listing. */
 router.post('/save', function(req, res, next) {
-   config.proj_save(req.body).then(function(data){res.send(data)});
+   project.save(req.body).then(function(data){res.send(data)});
 });
 module.exports = router;

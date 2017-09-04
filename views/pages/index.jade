@@ -1,7 +1,7 @@
 extends ../layout
 block content
 	.container
-		button#btn-register.btn.btn-xs.btn-primary 注册
+		button#btn-register.btn.btn-xs.btn-primary.mb-2 注册
 	.container
 		.row
 			table.table.table-hover.table-bordered
@@ -16,7 +16,7 @@ block content
 					each report in reports 
 						tr
 							td
-								button#btn-check.btn.btn-xs.btn-primary(data-dir='#{report.dir}',data-name='#{report.projName}') check
+								button.btn-check.btn.btn-xs.btn-primary(data-loading-text="checking...",type="button",data-toggle="button",data-dir='#{report.dir}',data-name='#{report.projName}') check
 							td
 								a(href='/#{report.dir}/#{report._id}/errors',target='_blank') #{report.projName}
 							td #{report.errorCount}

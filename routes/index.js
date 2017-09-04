@@ -1,13 +1,13 @@
 var express = require('express');
 var check = require('../services/check');
-var config = require('../services/config');
+var project = require('../services/project');
 var moment = require('moment');
 var _ = require('underscore');
 var router = express.Router();
 
-/* GET home page. */
+/* GET index page. */
 router.get('/', function(req, res, next) {
-    config.proj_list().then(function(projList) {
+    project.list().then(function(projList) {
         var ajaxArry = [];
          projlist = _.pluck(projList, '_doc');
         _.each(projlist, function(proj) {
@@ -21,6 +21,12 @@ router.get('/', function(req, res, next) {
         return Promise.all(ajaxArry);
     }).then(function(reports){
     	res.render('index',{title:'static-code-check',reports:reports});
+    });
+});
+/* GET index-row html. */
+router.get('/row/:dir', function(req, res, next) {
+   check.reports(req.params.dir).then(function(report){
+      res.render('index-row',{report:report[0]._doc});
     });
 });
 /* GET error results. */

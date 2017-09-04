@@ -3,17 +3,24 @@
 	var index={
 		pageReady:function(){
 			var me=this;
-			$("#btn-check").on("click",function(e){
-				me.checkStart(e.target.dataset);
+			$('body').on("click",".btn-check",function(e){
+			    var check_btn=$(this).button('loading');
+				me.checkStart(e.target.dataset).then(function(){
+					return me.getRowHtml(e.target.dataset.dir);
+				})
+				.then(function(rowHtml){
+					check_btn.parents('tr').html(rowHtml)		
+				});
 			});
 			$("#btn-register").on("click",function(e){
 				window.open('/register');
 			});
 		},
 		checkStart:function(data){
-			$.post('check',data).then(function(id){
-					window.location.reload();
-			});
+			return $.post('check',data);
+		},
+		getRowHtml:function(dir){
+			return $.get('row/'+dir);
 		}
 	};
 	window.app=index;
