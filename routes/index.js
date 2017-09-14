@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
         });
         return Promise.all(ajaxArry);
     }).then(function(reports){
-    	res.render('index',{title:'static-code-check',reports:reports});
+    	res.render('index',{title:'ERP静态代码检查',reports:reports});
     });
 });
 /* GET index-row html. */
