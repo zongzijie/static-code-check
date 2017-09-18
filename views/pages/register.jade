@@ -1,16 +1,19 @@
-extends ../layout
-block content
-	.container
-		.row
-			form(method='post',action='/register/save')
-				label 项目名称
-				input(type='text',name='projName')
-				label 文件夹名称
-				input(type='text',name='dir')
-				label TFS主机
-				input(type='text',name='host')
-				label 集合名称
-				input(type='text',name='collectionName')
-				label 代码地址
-				input(type='text',name='path')
-				input(type='submit')
+form(method='post',action='/register/save')
+	.form-row
+		.form-group.col-md-6
+			label.col-form-label(for="inputProjName") 项目名称
+			input.form-control(type='text',name='projName',id="inputProjName",placeholder="请填写项目中文名称")
+		.form-group.col-md-6
+			label.col-form-label(for="inputDir") 文件夹名称
+			input.form-control(type='text',name='dir',id='inputDir',placeholder='请填写文件夹名称')
+	.form-row
+		.form-group.col-md-6
+			label.col-form-label(for='inputHost') TFS主机
+			input.form-control(type='text',name='host',id='inputHost',placeholder='请填写tfs服务的主机名称')
+		.form-group.col-md-6
+			label.col-form-label(for='inputCollectionName') 集合名称
+			input.form-control(type='text',name='collectionName',id='inputCollectionName',placeholder='请填写TFS的集合名称')
+	.form-row
+		.form-group.col-md-12
+			label.col-form-label(for='inputPath') 源代码地址
+			input.form-control(type='text',name='path',id='inputPath',placeholder='请填写源代码所在的目录地址')

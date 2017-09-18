@@ -12,7 +12,7 @@ var source_code = require('../services/source_code');
  */
 function start(option) {
    return source_code.pull(option.dir).then(function() {
-        var cli = new CLIEngine(Eslintrc)
+        var cli = new CLIEngine(Eslintrc);
         var report = cli.executeOnFiles(['source_code/' + option.dir]);
         var report_id;
         return Report.create({
@@ -40,7 +40,7 @@ function start(option) {
  * @return {String} 文件夹名称
  */
 function reports(dir) {
-    return Report.where('dir', dir).sort({ '_id': -1 }).limit(1).exec();
+    return Report.where('dir', dir).sort({ '_id': -1 }).limit(1).findOne();
 }
 /**
  * 根据报告ID查询错误
@@ -50,8 +50,17 @@ function reports(dir) {
 function errors(report_id) {
     return Result.where('report_id', report_id).where('errorCount').gte(0).exec();
 }
+/**
+ * 根据报告ID查询错误
+ * @param  {String} report_id 报告Id
+ * @return {Array}           结果数组
+ */
+function history(dir) {
+    return Report.where('dir', dir).sort({ '_id': -1 }).limit(10).exec();
+}
 module.exports = {
     start: start,
+    history: history,
     reports: reports,
     errors: errors
 };

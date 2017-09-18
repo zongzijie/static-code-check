@@ -1,7 +1,7 @@
 extends ../layout
 block content
 	.container
-		button#btn-register.btn.btn-xs.btn-primary.mb-2 注册
+		button.btn.btn-primary(type="button",data-toggle="modal",data-target="#registerModal") 注册
 	.container
 		.row
 			table.table.table-hover.table-bordered
@@ -18,8 +18,20 @@ block content
 							td
 								button.btn-check.btn.btn-xs.btn-primary(data-loading-text="检查中...",type="button",data-toggle="button",data-dir='#{report.dir}',data-name='#{report.projName}') 开始检查
 							td
-								a(href='/#{report.dir}/#{report._id}/errors',target='_blank') #{report.projName}
-							td #{report.errorCount}
+								a(href='/report/#{report.dir}/history',target='_blank') #{report.projName}
+							td
+								a(href='/report/#{report.dir}/#{report._id}/errors',target='_blank') #{report.errorCount}
 							td #{report.warningCount}
-							td #{report.createdTime}
-
+							td #{moment(report.createdTime).format('YYYY-MM-DD')}
+	.modal.fade(id="registerModal",tabindex="-1",role="dialog",aria-labelledby="registerModalLabel",aria-hidden="true")
+		.modal-dialog(role="document")
+			.modal-content
+				.modal-header
+					button.close(type="button",data-dismiss="modal",aria-label="Close") 
+						span(aria-hidden="true")&times;
+					h4.modal-title(id="registerModalLabel") 注册项目信息
+				.modal-body
+					include register
+				.modal-footer
+					button(type="button",data-dismiss="modal").btn.btn-secondary Close
+					button(type="button").btn.btn-primary Save changes

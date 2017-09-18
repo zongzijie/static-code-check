@@ -1,7 +1,8 @@
 td
 	button.btn-check.btn.btn-xs.btn-primary(data-loading-text="检查中...",type="button",data-toggle="button",data-dir='#{report.dir}',data-name='#{report.projName}') 开始检查
 td
-	a(href='/#{report.dir}/#{report._id}/errors',target='_blank') #{report.projName}
-td #{report.errorCount}
+	a(href='/report/#{report.dir}/history',target='_blank') #{report.projName}
+td
+	a(href='/report/#{report.dir}/#{report._id}/errors',target='_blank') #{report.errorCount}
 td #{report.warningCount}
-td #{report.createdTime}
+td #{moment(report.createdTime).format('YYYY-MM-DD')}
