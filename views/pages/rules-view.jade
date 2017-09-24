@@ -1,0 +1,13 @@
+extends ../layout
+block content
+	.container
+		table.table.table-hover.table-bordered
+				thead
+					tr
+						th 规则ID
+						th 规则名称
+				tbody
+					each v,k  in rules 
+						tr
+							td #{k}
+							td #{v}

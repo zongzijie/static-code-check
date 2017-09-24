@@ -54,7 +54,7 @@ module.exports = {
     "no-void": "禁用void", //
     "no-with": "禁用with", //
     "no-warning-comments": "标记未写注释", //
-    "curly": "if、else、while、for代码块用{}包围", //
+    "curly": "if、else、while、for代码块用{}包围" //
     //"require-jsdoc":1, // 要求使用 JSDoc 注释
     //"valid-jsdoc": 2 //强制使用有效的 JSDoc 注释
 };
