@@ -17,7 +17,8 @@ block content
 						tr
 							td
 								button.btn-check.btn.btn-xs.btn-primary(data-loading-text="检查中...",type="button",data-toggle="button",data-dir='#{report.dir}',data-name='#{report.projName}') 开始检查
-								button.ml10.btn-init.btn.btn-xs.btn-primary(data-loading-text="处理中...",type="button",data-toggle="button",data-id='#{report._id}',data-dir='#{report.dir}') 初始化项目
+								if(report.state=='未初始化')
+									button.mlz10.btn-init.btn.btn-xs.btn-primary(data-loading-text="处理中...",type="button",data-toggle="button",data-id='#{report._id}',data-dir='#{report.dir}') 初始化项目
 							td
 								a(href='/report/#{report.dir}/charts',target='_blank') #{report.projName}
 							td
