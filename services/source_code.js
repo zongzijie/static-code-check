@@ -1,5 +1,6 @@
 var exec = require('child_process').exec;
 var Project = require('../models/project');
+var path = require('path');
 var Q = require('q');
 /**
  * 复制项目代码到本地
@@ -29,7 +30,21 @@ function pull(dir) {
     });
     return dfd.promise;
 }
+/**
+ * 删除文件夹以及文件
+ * @param  {String} dir 文件夹名称
+ * @return {Promise}     承诺
+ */
+function remove(dir) {
+    var dfd = Q.defer();
+    exec("rm -rf "+path.join(__dirname, 'source_code',dir), function(err, stdout, stderr) {
+        console.log(stderr);
+        dfd.resolve(err, stdout, stderr);
+    });
+    return dfd.promise;
+}
 module.exports = {
     clone: clone,
+    remove: remove,
     pull: pull
 };

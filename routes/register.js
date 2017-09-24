@@ -11,11 +11,34 @@ router.post('/save', function(req, res, next) {
         res.send(id);
     });
 });
+/* update project data. */
+router.post('/update', function(req, res, next) {
+    //更新项目
+    project.update(req.body).then(function(id) {
+        res.send(id);
+    });
+});
+/* delete project data. */
+router.post('/remove', function(req, res, next) {
+    //删除项目
+    project.remove(req.body.dir).then(function(id) {
+        source_code.remove(req.body.dir).then(function() {
+            res.send(id);
+        });
+    });
+});
+/* findOne project data. */
+router.get('/project/:dir', function(req, res, next) {
+    //项目
+    project.one4dir(req.params.dir).then(function(project) {
+        res.send(project);
+    });
+});
 /* init project data. */
 router.post('/init', function(req, res, next) {
-	//获取单个项目
+    //获取单个项目
     project.one(req.body.id).then(function(project) {
-    	//根据项目信息，下载最新代码
+        //根据项目信息，下载最新代码
         return source_code.clone(project).then(function() {
             project.state = stateEnum.inited;
             //更新项目状态为已初始化

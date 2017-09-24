@@ -12,19 +12,23 @@ block content
 						th 错误数量
 						th 警告数量
 						th 检查时间
+						th 编辑
 				tbody
 					each report in reports 
 						tr
 							td
 								button.btn-check.btn.btn-xs.btn-primary(data-loading-text="检查中...",type="button",data-toggle="button",data-dir='#{report.dir}',data-name='#{report.projName}') 开始检查
 								if(report.state=='未初始化')
-									button.mlz10.btn-init.btn.btn-xs.btn-primary(data-loading-text="处理中...",type="button",data-toggle="button",data-id='#{report._id}',data-dir='#{report.dir}') 初始化项目
+									button.ml10.btn-init.btn.btn-xs.btn-primary(data-loading-text="处理中...",type="button",data-toggle="button",data-id='#{report._id}',data-dir='#{report.dir}') 初始化项目
 							td
 								a(href='/report/#{report.dir}/charts',target='_blank') #{report.projName}
 							td
 								a(href='/report/#{report.dir}/#{report._id}/errors',target='_blank') #{report.errorCount}
 							td #{report.warningCount}
 							td #{moment(report.createdTime).format('YYYY-MM-DD HH:mm:ss')}
+							td 
+								a.btn-edit(href='#',type="button",data-toggle="modal",data-target="#editerModal",data-dir='#{report.dir}') 修改
+								a.btn-remove.ml10(href='#',data-dir='#{report.dir}') 删除
 	.modal.fade(id="registerModal",tabindex="-1",role="dialog",aria-labelledby="registerModalLabel",aria-hidden="true")
 		.modal-dialog(role="document")
 			.modal-content
@@ -37,5 +41,17 @@ block content
 				.modal-footer
 					button(type="button",data-dismiss="modal").btn.btn-secondary 关闭
 					button#btnSave(data-loading-text="处理中...",type="button",data-toggle="button").btn.btn-primary 保存
+	.modal.fade(id="editerModal",tabindex="-1",role="dialog",aria-labelledby="editerModalLabel",aria-hidden="true")
+		.modal-dialog(role="document")
+			.modal-content
+				.modal-header
+					button.close(type="button",data-dismiss="modal",aria-label="Close") 
+						span(aria-hidden="true")&times;
+					h4.modal-title(id="registerModalLabel") 修改项目信息
+				.modal-body
+					include editer
+				.modal-footer
+					button(type="button",data-dismiss="modal").btn.btn-secondary 关闭
+					button#btnUpdate(data-loading-text="处理中...",type="button",data-toggle="button").btn.btn-primary 保存
 	
 

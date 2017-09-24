@@ -2,6 +2,7 @@ var mongoose=require('../db').mongoose;
 var schema=new mongoose.Schema( {
 			report_id:String,
             filePath: String,
+            dir: String,
             messages: [],
             errorCount: Number,
             warningCount: Number,

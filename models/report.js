@@ -6,7 +6,7 @@ var schema = new mongoose.Schema({
     errorCount: Number,
     warningCount: Number,
     fixableErrorCount: Number,
-    fixableWarningCount: Number,
+    fixableWarningCount: Number
 });
 var Report = mongoose.model('report', schema);
 module.exports = Report;

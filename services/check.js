@@ -33,6 +33,7 @@ function start(option) {
             //为结果明细设置外键和规则的中文说明
             _.each(report.results,function(result){
                 result.report_id=report_id;
+                result.dir=option.dir;
                 _.each(result.messages,function(message){
                     message.ruleName=rule_name[message.ruleId];
                 });
@@ -68,6 +69,16 @@ function errors(report_id) {
 function history(dir) {
     var today = moment().subtract(10,'days').format('YYYY-MM-DD');
     return Report.where('dir',dir).where('createdTime').gte(today).sort({ '_id': 1 }).limit(10).exec();
+}
+/**
+ * 删除项目对应的报告和明细
+ * @param  {String} report_id 报告Id
+ * @return {Array}           结果数组
+ */
+function remove(dir) {
+    return Report.remove({dir:dir}).then(function(){
+       return Result.remove({dir:dir});
+    });
 }
 module.exports = {
     start: start,

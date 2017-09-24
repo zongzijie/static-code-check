@@ -12,6 +12,7 @@
         pageReady: function() {
             var me = this;
             me.registerModal = $('#registerModal');
+            me.editerModal = $('#editerModal');
             $('body').on("click", ".btn-check", function(e) {
                 var check_btn = $(this).button('loading');
                 me.checkStart(e.target.dataset).then(function() {
@@ -30,6 +31,18 @@
                         init_btn.parents('tr').html(rowHtml)
                     });
             });
+            $('body').on("click", ".btn-remove", function(e) {
+                if (confirm('删除项目吗？')) {
+                    me.remove(e.target.dataset).then(function() {
+                        window.location.reload();
+                    });
+                }
+            });
+            $('body').on("click", ".btn-edit", function(e) {
+                me.getProject(e.target.dataset.dir).then(function(project) {
+                    me._fillForm($('#editer_form'),project);
+                });
+            });
             $('#btnSave').on('click', function() {
                 var data = $('#register_form').serialize();
                 data = decodeURIComponent(data, true);
@@ -38,7 +51,24 @@
                     window.location.reload();
                 });
             });
+            $('#btnUpdate').on('click', function() {
+                var data = $('#editer_form').serialize();
+                data = decodeURIComponent(data, true);
+                me.update(data).then(function() {
+                    me.editerModal.modal('hide');
+                    window.location.reload();
+                });
+            });
 
+        },
+        _fillForm: function(form,data) {
+            _.each(data, function(v, k) {
+                if (typeof v == 'function') {
+                    return;
+                }
+                var $input=form.find('[name="'+k+'"]');
+                $input.val(v);
+            });
         },
         /**
          * 开始检查
@@ -57,12 +87,36 @@
             return $.get('row/' + dir);
         },
         /**
+         * 获取项目信息
+         * @param  {String} dir 文件夹名称
+         * @return {Promise}     承诺对象
+         */
+        getProject: function(dir) {
+            return $.get('/register/project/' + dir);
+        },
+        /**
          * 保存
          * @param  {Object} data 表单数据
          * @return {Promise}     承诺对象
          */
         save: function(data) {
             return $.post('/register/save', data);
+        },
+        /**
+         * 更新
+         * @param  {Object} data 表单数据
+         * @return {Promise}     承诺对象
+         */
+        update: function(data) {
+            return $.post('/register/update', data);
+        },
+        /**
+         * 删除
+         * @param  {Object} data 表单数据
+         * @return {Promise}     承诺对象
+         */
+        remove: function(data) {
+            return $.post('/register/remove', data);
         },
         /**
          * 初始化
