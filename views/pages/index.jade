@@ -1,7 +1,7 @@
 extends ../layout
 block content
 	.container
-		button.btn.btn-primary(type="button",data-toggle="modal",data-target="#registerModal") 注册
+		button.mb10.btn.btn-primary(type="button",data-toggle="modal",data-target="#registerModal") 注册
 	.container
 		.row
 			table.table.table-hover.table-bordered
@@ -17,8 +17,7 @@ block content
 						tr
 							td
 								button.btn-check.btn.btn-xs.btn-primary(data-loading-text="检查中...",type="button",data-toggle="button",data-dir='#{report.dir}',data-name='#{report.projName}') 开始检查
-								if(report.state=='未初始化')
-									button.btn-init.btn.btn-xs.btn-primary(data-loading-text="处理中...",type="button",data-toggle="button",data-id='#{report._id}',data-dir='#{report.dir}') 初始化项目
+								button.ml10.btn-init.btn.btn-xs.btn-primary(data-loading-text="处理中...",type="button",data-toggle="button",data-id='#{report._id}',data-dir='#{report.dir}') 初始化项目
 							td
 								a(href='/report/#{report.dir}/charts',target='_blank') #{report.projName}
 							td
