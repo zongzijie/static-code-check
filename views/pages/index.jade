@@ -17,12 +17,14 @@ block content
 						tr
 							td
 								button.btn-check.btn.btn-xs.btn-primary(data-loading-text="检查中...",type="button",data-toggle="button",data-dir='#{report.dir}',data-name='#{report.projName}') 开始检查
+								if(report.state=='未初始化')
+									button.btn-init.btn.btn-xs.btn-primary(data-loading-text="处理中...",type="button",data-toggle="button",data-id='#{report._id}',data-dir='#{report.dir}') 初始化项目
 							td
-								a(href='/report/#{report.dir}/history',target='_blank') #{report.projName}
+								a(href='/report/#{report.dir}/charts',target='_blank') #{report.projName}
 							td
 								a(href='/report/#{report.dir}/#{report._id}/errors',target='_blank') #{report.errorCount}
 							td #{report.warningCount}
-							td #{moment(report.createdTime).format('YYYY-MM-DD')}
+							td #{moment(report.createdTime).format('YYYY-MM-DD HH:mm:ss')}
 	.modal.fade(id="registerModal",tabindex="-1",role="dialog",aria-labelledby="registerModalLabel",aria-hidden="true")
 		.modal-dialog(role="document")
 			.modal-content
@@ -33,5 +35,7 @@ block content
 				.modal-body
 					include register
 				.modal-footer
-					button(type="button",data-dismiss="modal").btn.btn-secondary Close
-					button(type="button").btn.btn-primary Save changes
+					button(type="button",data-dismiss="modal").btn.btn-secondary 关闭
+					button#btnSave(data-loading-text="处理中...",type="button",data-toggle="button").btn.btn-primary 保存
+	
+

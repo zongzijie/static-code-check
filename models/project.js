@@ -9,7 +9,9 @@ var schema=new mongoose.Schema( {
            	//集合名称
             collectionName:String,
             //源代码地址
-            path:String
+            path:String,
+            //状态
+            state:String
         });
 var Resutl=mongoose.model('project',schema);
 module.exports=Resutl;

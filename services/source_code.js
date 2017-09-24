@@ -1,19 +1,25 @@
 var exec = require('child_process').exec;
 var Project = require('../models/project');
 var Q = require('q');
+/**
+ * 复制项目代码到本地
+ * @param  {Object} project 项目信息
+ * @return {Promise}         承诺
+ */
+function clone(project) {
+    var dfd = Q.defer();
+    exec("git tf clone " + project.host + "/" + project.collectionName + " " + project.path + " source_code/" + project.dir, function(err, stdout, stderr) {
 
-function clone(proj_id) {
-   return Project.findById(proj_id).then(function(project) {
-        var dfd = Q.defer();
-        exec("git tf clone ", function(err, stdout, stderr) {
-
-            console.log(stderr);
-            dfd.resolve(err, stdout, stderr);
-        });
-        return dfd.promise;
+        console.log(stderr);
+        dfd.resolve(err, stdout, stderr);
     });
+    return dfd.promise;
 }
-
+/**
+ * 拉取最新代码到本地
+ * @param  {String} dir 文件夹名称
+ * @return {Promise}     承诺
+ */
 function pull(dir) {
     var dfd = Q.defer();
     exec("git --git-dir=source_code/" + dir + "/.git tf pull", function(err, stdout, stderr) {
@@ -23,18 +29,6 @@ function pull(dir) {
     });
     return dfd.promise;
 }
-// exec(cmdStr, function(err,stdout,stderr){
-//     if(err) {
-//         console.log('get weather api error:'+stderr);
-//     } else {
-
-//         这个stdout的内容就是上面我curl出来的这个东西：
-//         {"weatherinfo":{"city":"北京","cityid":"101010100","temp":"3","WD":"西北风","WS":"3级","SD":"23%","WSE":"3","time":"21:20","isRadar":"1","Radar":"JC_RADAR_AZ9010_JB","njd":"暂无实况","qy":"1019"}}
-
-//         var data = JSON.parse(stdout);
-//         console.log(data);
-//     }
-// });
 module.exports = {
     clone: clone,
     pull: pull

@@ -12,7 +12,9 @@ function list(){
  * @return {Promise}      承诺
  */
 function save(data){
-	return Project.create(data);
+	return Project.create(data).then(function(p){
+		return p._id;
+	});
 }
 /**
  * 获取某个项目

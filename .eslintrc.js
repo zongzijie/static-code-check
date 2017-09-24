@@ -7,9 +7,7 @@ module.exports = {
     },
     //环境
     "env": {
-        "browser": true,
-        "node": true,
-        "es6": true,
+        "node": true
     },
     //规则
     "rules": {
