@@ -5,7 +5,7 @@ td
 td
 	a(href='/report/#{report.dir}/#{report._id}/errors',target='_blank') #{report.errorCount}
 td #{report.warningCount}
-td #{moment(report.createdTime).format('YYYY-MM-DD')}
+td #{moment(report.createdTime).format('YYYY-MM-DD HH:mm:ss')}
 td 
 	a.btn-edit(href='#',type="button",data-toggle="modal",data-target="#editerModal",data-dir='#{report.dir}') 修改
 	a.btn-remove.ml10(href='#',data-dir='#{report.dir}') 删除
