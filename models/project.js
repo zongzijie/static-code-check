@@ -4,6 +4,8 @@ var schema=new mongoose.Schema( {
             projName: String,
             //下载到本地的文件夹名称
             dir:String,
+            //创建时间
+            createdTime:Date,
             //TFS主机
             host:String,
            	//集合名称

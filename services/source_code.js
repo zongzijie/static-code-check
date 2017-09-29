@@ -9,7 +9,7 @@ var Q = require('q');
  */
 function clone(project) {
     var dfd = Q.defer();
-    exec("git tf clone " + project.host + "/" + project.collectionName + " " + project.path + " source_code/" + project.dir, function(err, stdout, stderr) {
+    exec("git tf clone " + project.host + "/" + project.collectionName + " " + project.path + " source_code/" + project._id, function(err, stdout, stderr) {
 
         console.log(stderr);
         dfd.resolve(err, stdout, stderr);

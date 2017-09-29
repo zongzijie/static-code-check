@@ -13,6 +13,7 @@
             var me = this;
             me.registerModal = $('#registerModal');
             me.editerModal = $('#editerModal');
+            //开始检查
             $('body').on("click", ".btn-check", function(e) {
                 var check_btn = $(this).button('loading');
                 me.checkStart(e.target.dataset).then(function() {
@@ -22,15 +23,14 @@
                         check_btn.parents('tr').html(rowHtml)
                     });
             });
+            //初始化项目
             $('body').on("click", ".btn-init", function(e) {
                 var init_btn = $(this).button('loading');
                 me.init(e.target.dataset).then(function() {
-                        return me.getRowHtml(e.target.dataset.dir);
-                    })
-                    .then(function(rowHtml) {
-                        init_btn.parents('tr').html(rowHtml)
+                        window.location.reload();
                     });
             });
+            //删除
             $('body').on("click", ".btn-remove", function(e) {
                 if (confirm('删除项目吗？')) {
                     me.remove(e.target.dataset).then(function() {
@@ -38,11 +38,18 @@
                     });
                 }
             });
+            //新增
+            $('body').on("click", ".btn-register", function(e) {
+                 me._fillForm($('#register_form'),{createdTime:moment(new Date()).format('YYYY-MM-DD HH:mm:ss')});
+            });
+            //修改
             $('body').on("click", ".btn-edit", function(e) {
                 me.getProject(e.target.dataset.dir).then(function(project) {
+                    project.createdTime=moment(project.createdTime).format('YYYY-MM-DD HH:mm:ss')
                     me._fillForm($('#editer_form'),project);
                 });
             });
+            //保存
             $('#btnSave').on('click', function() {
                 var data = $('#register_form').serialize();
                 data = decodeURIComponent(data, true);
@@ -51,6 +58,7 @@
                     window.location.reload();
                 });
             });
+            //更新
             $('#btnUpdate').on('click', function() {
                 var data = $('#editer_form').serialize();
                 data = decodeURIComponent(data, true);
