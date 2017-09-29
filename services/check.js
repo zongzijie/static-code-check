@@ -19,23 +19,28 @@ function start(option) {
         //对指定文件夹进行代码扫描
         var report = cli.executeOnFiles(['source_code/' + option.dir]);
         var report_id;
-        //创建报告对象
-        return Report.create({
-            projName: option.name,
-            dir: option.dir,
-            createdTime: new Date(),
-            errorCount: report.errorCount,
-            warningCount: report.warningCount,
-            fixableErrorCount: report.fixableErrorCount,
-            fixableWarningCount: report.fixableWarningCount
+        //查询上一次检查结果，对比并记录差异
+        return reports(option.dir).then(function(oldReport) {
+            //创建报告对象
+            return Report.create({
+                projName: option.name,
+                dir: option.dir,
+                createdTime: new Date(),
+                errorCount: report.errorCount,
+                errorDiff: report.errorCount-oldReport.errorCount,
+                warningCount: report.warningCount,
+                warningDiff: report.warningCount-oldReport.warningCount,
+                fixableErrorCount: report.fixableErrorCount,
+                fixableWarningCount: report.fixableWarningCount
+            });
         }).then(function(reportData) {
             report_id = reportData._id;
             //为结果明细设置外键和规则的中文说明
-            _.each(report.results,function(result){
-                result.report_id=report_id;
-                result.dir=option.dir;
-                _.each(result.messages,function(message){
-                    message.ruleName=rule_name[message.ruleId];
+            _.each(report.results, function(result) {
+                result.report_id = report_id;
+                result.dir = option.dir;
+                _.each(result.messages, function(message) {
+                    message.ruleName = rule_name[message.ruleId];
                 });
             });
             //批量创建报告结果明细
@@ -43,6 +48,7 @@ function start(option) {
         }).then(function() {
             return report_id;
         });
+
     });
 
 }
@@ -67,8 +73,8 @@ function errors(report_id) {
  * @return {Array}           结果数组
  */
 function history(dir) {
-    var today = moment().subtract(10,'days').format('YYYY-MM-DD');
-    return Report.where('dir',dir).where('createdTime').gte(today).sort({ '_id': 1 }).limit(10).exec();
+    var today = moment().subtract(10, 'days').format('YYYY-MM-DD');
+    return Report.where('dir', dir).where('createdTime').gte(today).sort({ '_id': 1 }).limit(10).exec();
 }
 /**
  * 删除项目对应的报告和明细
@@ -76,8 +82,8 @@ function history(dir) {
  * @return {Array}           结果数组
  */
 function remove(dir) {
-    return Report.remove({dir:dir}).then(function(){
-       return Result.remove({dir:dir});
+    return Report.remove({ dir: dir }).then(function() {
+        return Result.remove({ dir: dir });
     });
 }
 module.exports = {

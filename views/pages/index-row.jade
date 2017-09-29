@@ -7,7 +7,20 @@ td
 	a(href='/report/#{report.dir}/charts',target='_blank') #{report.projName}
 td
 	a(href='/report/#{report.dir}/#{report._id}/errors',target='_blank') #{report.errorCount}
-td #{report.warningCount}
+	if(report.errorDiff==0)
+		span.ml10 --
+	if(report.errorDiff>0)	
+		span.ml10.countUp #{report.errorDiff}
+	if(report.errorDiff<0)	
+		span.ml10.countDown #{report.errorDiff}
+td 
+	span #{report.warningCount}
+	if(report.warningDiff==0)
+		span.ml10 --
+	if(report.warningDiff>0)	
+		span.ml10.countUp #{report.warningDiff}
+	if(report.warningDiff<0)	
+		span.ml10.countDown #{report.warningDiff}
 td #{moment(report.createdTime).format('YYYY-MM-DD HH:mm:ss')}
 td 
 	a.btn-edit(href='#',type="button",data-toggle="modal",data-target="#editerModal",data-dir='#{report.dir}') 修改

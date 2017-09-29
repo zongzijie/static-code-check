@@ -4,7 +4,9 @@ var schema = new mongoose.Schema({
 	dir:String,
 	createdTime:Date,
     errorCount: Number,
+	errorDiff:Number,
     warningCount: Number,
+    warningDiff: Number,
     fixableErrorCount: Number,
     fixableWarningCount: Number
 });
