@@ -1,7 +1,7 @@
 extends ../layout
 block content
 	.container
-		button.mb10.btn.btn-primary(type="button",data-toggle="modal",data-target="#registerModal") 注册
+		button.mb10.btn.btn-primary(type="button",data-toggle="modal",data-target="#registerModal") 新建检查
 		a.ml10(href='/view/rules',target='_blank') 规则列表
 	.container
 		.row
@@ -18,9 +18,10 @@ block content
 					each report in reports 
 						tr
 							td
-								button.btn-check.btn.btn-xs.btn-primary(data-loading-text="检查中...",type="button",data-toggle="button",data-dir='#{report.dir}',data-name='#{report.projName}') 开始检查
 								if(report.state=='未初始化')
-									button.ml10.btn-init.btn.btn-xs.btn-primary(data-loading-text="处理中...",type="button",data-toggle="button",data-id='#{report._id}',data-dir='#{report.dir}') 初始化项目
+									button.btn-init.btn.btn-xs.btn-primary(data-loading-text="处理中...",type="button",data-toggle="button",data-id='#{report._id}',data-dir='#{report.dir}') 初始化项目
+								else
+									button.btn-check.btn.btn-xs.btn-primary(data-loading-text="检查中...",type="button",data-toggle="button",data-dir='#{report.dir}',data-name='#{report.projName}') 开始检查
 							td
 								a(href='/report/#{report.dir}/charts',target='_blank') #{report.projName}
 							td
@@ -36,7 +37,7 @@ block content
 				.modal-header
 					button.close(type="button",data-dismiss="modal",aria-label="Close") 
 						span(aria-hidden="true")&times;
-					h4.modal-title(id="registerModalLabel") 注册项目信息
+					h4.modal-title(id="registerModalLabel") 新建检查
 				.modal-body
 					include register
 				.modal-footer
@@ -48,7 +49,7 @@ block content
 				.modal-header
 					button.close(type="button",data-dismiss="modal",aria-label="Close") 
 						span(aria-hidden="true")&times;
-					h4.modal-title(id="registerModalLabel") 修改项目信息
+					h4.modal-title(id="registerModalLabel") 修改检查
 				.modal-body
 					include editer
 				.modal-footer
