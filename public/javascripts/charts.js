@@ -37,6 +37,9 @@
         _pieChart: function(title,id) {
             var container = $(id)[0];
             var data = JSON.parse(container.dataset.data);
+            if(data.length==0){
+                container.hidden=true;
+            }
             var myChart = echarts.init(container);
             var ruleIdArray = _.pluck(data, 'ruleName');
             //统计问题出现的次数
