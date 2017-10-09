@@ -29,7 +29,7 @@ block content
 								if(report.errorDiff==0)
 									span.ml10 --
 								if(report.errorDiff>0)	
-									span.ml10.countUp #{report.errorDiff}
+									span.ml10.countUp +#{report.errorDiff}
 								if(report.errorDiff<0)	
 									span.ml10.countDown #{report.errorDiff}
 							td 
@@ -37,7 +37,7 @@ block content
 								if(report.warningDiff==0)
 									span.ml10 --
 								if(report.warningDiff>0)	
-									span.ml10.countUp #{report.warningDiff}
+									span.ml10.countUp +#{report.warningDiff}
 								if(report.warningDiff<0)	
 									span.ml10.countDown #{report.warningDiff}
 							td #{moment(report.createdTime).format('YYYY-MM-DD HH:mm:ss')}
