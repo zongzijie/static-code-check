@@ -21,6 +21,7 @@ router.get('/', function(req, res, next) {
                 //如果存在报告，则覆盖报告上的项目名称，以项目为准
                 //因为有可能生成报告之后修改项目名称
                 report.projName = proj.projName;
+                report.versionControl = proj.versionControl;
                 return report;
             }));
         });

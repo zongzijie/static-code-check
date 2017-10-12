@@ -9,25 +9,41 @@ var Q = require('q');
  */
 function clone(project) {
     var dfd = Q.defer();
-    exec("git tf clone " + project.host + "/" + project.collectionName + " " + project.path + " source_code/" + project._id, function(err, stdout, stderr) {
+    if (project.versionControl == 'TFS') {
+        exec("git tf clone " + project.host + "/" + project.collectionName + " " + project.path + " source_code/" + project._id, function(err, stdout, stderr) {
 
-        console.log(stderr);
-        dfd.resolve(err, stdout, stderr);
-    });
+            console.log(stderr);
+            dfd.resolve(err, stdout, stderr);
+        });
+    }
+    if (project.versionControl == 'GIT') {
+        exec("git clone " + project.path + " source_code/" + project._id, function(err, stdout, stderr) {
+            console.log(stderr);
+            dfd.resolve(err, stdout, stderr);
+        });
+    }
     return dfd.promise;
 }
 /**
  * 拉取最新代码到本地
  * @param  {String} dir 文件夹名称
+ * @param  {String} versionControl 版本控制方式 TFS GIT
  * @return {Promise}     承诺
  */
-function pull(dir) {
+function pull(dir, versionControl) {
     var dfd = Q.defer();
-    exec("git --git-dir=source_code/" + dir + "/.git tf pull", function(err, stdout, stderr) {
-
-        console.log(stderr);
-        dfd.resolve(err, stdout, stderr);
-    });
+    if (versionControl == 'TFS') {
+        exec("git --git-dir=source_code/" + dir + "/.git tf pull", function(err, stdout, stderr) {
+            console.log(stderr);
+            dfd.resolve(err, stdout, stderr);
+        });
+    }
+    if (versionControl == 'GIT') {
+        exec("git --git-dir=source_code/" + dir + "/.git pull", function(err, stdout, stderr) {
+            console.log(stderr);
+            dfd.resolve(err, stdout, stderr);
+        });
+    }
     return dfd.promise;
 }
 /**
@@ -37,7 +53,7 @@ function pull(dir) {
  */
 function remove(dir) {
     var dfd = Q.defer();
-    exec("rm -rf "+path.join(__dirname, 'source_code',dir), function(err, stdout, stderr) {
+    exec("rm -rf source_code/" + dir , function(err, stdout, stderr) {
         console.log(stderr);
         dfd.resolve(err, stdout, stderr);
     });

@@ -38,29 +38,59 @@
                     });
                 }
             });
-            //新增
-            $('body').on("click", ".btn-register", function(e) {
-                 me._fillForm($('#register_form'),{createdTime:moment(new Date()).format('YYYY-MM-DD HH:mm:ss')});
+            //新增tfs检查
+            $('body').on("click", ".btn-register-tfs", function(e) {
+                 me._fillForm($('#register_tfs_form'),{createdTime:moment(new Date()).format('YYYY-MM-DD HH:mm:ss')});
             });
-            //修改
-            $('body').on("click", ".btn-edit", function(e) {
+            //修改tfs检查
+            $('body').on("click", ".btn-edit-tfs", function(e) {
                 me.getProject(e.target.dataset.dir).then(function(project) {
                     project.createdTime=moment(project.createdTime).format('YYYY-MM-DD HH:mm:ss')
-                    me._fillForm($('#editer_form'),project);
+                    me._fillForm($('#editer_tfs_form'),project);
                 });
             });
-            //保存
-            $('#btnSave').on('click', function() {
-                var data = $('#register_form').serialize();
+            //保存tfs
+            $('#btnTFSSave').on('click', function() {
+                var data = $('#register_tfs_form').serialize();
                 data = decodeURIComponent(data, true);
                 me.save(data).then(function() {
                     me.registerModal.modal('hide');
                     window.location.reload();
                 });
             });
-            //更新
-            $('#btnUpdate').on('click', function() {
-                var data = $('#editer_form').serialize();
+            //更新tfs
+            $('#btnTFSUpdate').on('click', function() {
+                var data = $('#editer_tfs_form').serialize();
+                data = decodeURIComponent(data, true);
+                me.update(data).then(function() {
+                    me.editerModal.modal('hide');
+                    window.location.reload();
+                });
+            });
+            //新增git检查
+            $('body').on("click", ".btn-register-git", function(e) {
+                 me._fillForm($('#register_git_form'),{createdTime:moment(new Date()).format('YYYY-MM-DD HH:mm:ss')});
+            });
+            //修改git检查
+            $('body').on("click", ".btn-edit-git", function(e) {
+                me.getProject(e.target.dataset.dir).then(function(project) {
+                    project.createdTime=moment(project.createdTime).format('YYYY-MM-DD HH:mm:ss')
+                    me._fillForm($('#editer_git_form'),project);
+                });
+            });
+
+            //保存git
+            $('#btnGITSave').on('click', function() {
+                var data = $('#register_git_form').serialize();
+                data = decodeURIComponent(data, true);
+                me.save(data).then(function() {
+                    me.registerModal.modal('hide');
+                    window.location.reload();
+                });
+            });
+            //更新git
+            $('#btnGITUpdate').on('click', function() {
+                var data = $('#editer_git_form').serialize();
                 data = decodeURIComponent(data, true);
                 me.update(data).then(function() {
                     me.editerModal.modal('hide');

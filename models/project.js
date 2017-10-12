@@ -4,6 +4,8 @@ var schema=new mongoose.Schema( {
             projName: String,
             //下载到本地的文件夹名称
             dir:String,
+            //版本控制方式 TFS GIT
+            versionControl:String,
             //创建时间
             createdTime:Date,
             //TFS主机

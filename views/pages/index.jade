@@ -1,7 +1,8 @@
 extends ../layout
 block content
 	.container
-		button.mb10.btn.btn-primary.btn-register(type="button",data-toggle="modal",data-target="#registerModal") 新建检查
+		button.mb10.btn.btn-primary.btn-register-tfs(type="button",data-toggle="modal",data-target="#registerTFSModal") 新建TFS检查
+		button.ml10.mb10.btn.btn-primary.btn-register-git(type="button",data-toggle="modal",data-target="#registerGITModal") 新建GIT检查
 		a.ml10(href='/view/rules',target='_blank') 规则列表
 	.container
 		.row
@@ -42,31 +43,58 @@ block content
 									span.ml10.countDown #{report.warningDiff}
 							td #{moment(report.createdTime).format('YYYY-MM-DD HH:mm:ss')}
 							td 
-								a.btn-edit(href='#',type="button",data-toggle="modal",data-target="#editerModal",data-dir='#{report.dir}') 修改
+								if(report.versionControl=='TFS')
+									a.btn-edit-tfs(href='#',type="button",data-toggle="modal",data-target="#editerTFSModal",data-dir='#{report.dir}') 修改
+								if(report.versionControl=='GIT')
+									a.btn-edit-git(href='#',type="button",data-toggle="modal",data-target="#editerGITModal",data-dir='#{report.dir}') 修改
 								a.btn-remove.ml10(href='#',data-dir='#{report.dir}') 删除
-	.modal.fade(id="registerModal",tabindex="-1",role="dialog",aria-labelledby="registerModalLabel",aria-hidden="true")
+	.modal.fade(id="registerTFSModal",tabindex="-1",role="dialog",aria-labelledby="registerTFSModalLabel",aria-hidden="true")
 		.modal-dialog(role="document")
 			.modal-content
 				.modal-header
 					button.close(type="button",data-dismiss="modal",aria-label="Close") 
 						span(aria-hidden="true")&times;
-					h4.modal-title(id="registerModalLabel") 新建检查
+					h4.modal-title(id="registerTFSModalLabel") 新建TFS检查
 				.modal-body
-					include register
+					include register-tfs
 				.modal-footer
 					button(type="button",data-dismiss="modal").btn.btn-secondary 关闭
-					button#btnSave(data-loading-text="处理中...",type="button",data-toggle="button").btn.btn-primary 保存
-	.modal.fade(id="editerModal",tabindex="-1",role="dialog",aria-labelledby="editerModalLabel",aria-hidden="true")
+					button#btnTFSSave(data-loading-text="处理中...",type="button",data-toggle="button").btn.btn-primary 保存
+	.modal.fade(id="editerTFSModal",tabindex="-1",role="dialog",aria-labelledby="editerTFSModalLabel",aria-hidden="true")
 		.modal-dialog(role="document")
 			.modal-content
 				.modal-header
 					button.close(type="button",data-dismiss="modal",aria-label="Close") 
 						span(aria-hidden="true")&times;
-					h4.modal-title(id="registerModalLabel") 修改检查
+					h4.modal-title(id="registerTFSModalLabel") 修改TFS检查
 				.modal-body
-					include editer
+					include editer-tfs
 				.modal-footer
 					button(type="button",data-dismiss="modal").btn.btn-secondary 关闭
-					button#btnUpdate(data-loading-text="处理中...",type="button",data-toggle="button").btn.btn-primary 保存
+					button#btnTFSUpdate(data-loading-text="处理中...",type="button",data-toggle="button").btn.btn-primary 保存
+	.modal.fade(id="registerGITModal",tabindex="-1",role="dialog",aria-labelledby="registerGITModalLabel",aria-hidden="true")
+		.modal-dialog(role="document")
+			.modal-content
+				.modal-header
+					button.close(type="button",data-dismiss="modal",aria-label="Close") 
+						span(aria-hidden="true")&times;
+					h4.modal-title(id="registerGITModalLabel") 新建GIT检查
+				.modal-body
+					include register-git
+				.modal-footer
+					button(type="button",data-dismiss="modal").btn.btn-secondary 关闭
+					button#btnGITSave(data-loading-text="处理中...",type="button",data-toggle="button").btn.btn-primary 保存
+	.modal.fade(id="editerGITModal",tabindex="-1",role="dialog",aria-labelledby="editerGITModalLabel",aria-hidden="true")
+		.modal-dialog(role="document")
+			.modal-content
+				.modal-header
+					button.close(type="button",data-dismiss="modal",aria-label="Close") 
+						span(aria-hidden="true")&times;
+					h4.modal-title(id="registerGITModalLabel") 修改GIT检查
+				.modal-body
+					include editer-git
+				.modal-footer
+					button(type="button",data-dismiss="modal").btn.btn-secondary 关闭
+					button#btnGITUpdate(data-loading-text="处理中...",type="button",data-toggle="button").btn.btn-primary 保存
 	
 
