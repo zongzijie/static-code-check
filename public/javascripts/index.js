@@ -73,7 +73,7 @@
             });
             //修改git检查
             $('body').on("click", ".btn-edit-git", function(e) {
-                me.getProject(e.target.dataset.projId).then(function(project) {
+                me.getProject(e.target.dataset.projid).then(function(project) {
                     project.createdTime=moment(project.createdTime).format('YYYY-MM-DD HH:mm:ss')
                     me._fillForm($('#editer_git_form'),project);
                 });
