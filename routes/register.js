@@ -23,16 +23,16 @@ router.post('/update', function(req, res, next) {
 /* delete project data. */
 router.post('/remove', function(req, res, next) {
     //删除项目
-    project.remove(req.body.dir).then(function(id) {
-        source_code.remove(req.body.dir).then(function() {
+    project.remove(req.body.projid).then(function(id) {
+        source_code.remove(req.body.projid).then(function() {
             res.send(id);
         });
     });
 });
 /* findOne project data. */
-router.get('/project/:dir', function(req, res, next) {
+router.get('/project/:projid', function(req, res, next) {
     //项目
-    project.one4dir(req.params.dir).then(function(project) {
+    project.one(req.params.projid).then(function(project) {
         res.send(project);
     });
 });

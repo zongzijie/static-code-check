@@ -30,15 +30,15 @@ function one(id){
  * @return {Promise}      承诺
  */
 function update(data){
-	return Project.update({dir:data.dir},data);
+	return Project.update({_id:data._id},data);
 }
 /**
  * 删除某个项目
- * @param  {String} dir 项目文件夹名称
+ * @param  {String} projid 项目Id
  * @return {Promise}     承诺
  */
-function remove(dir){
-	return Project.remove({dir:dir});
+function remove(projid){
+	return Project.remove({_id:projid});
 }
 
 /**

@@ -44,10 +44,10 @@ block content
 							td #{moment(report.createdTime).format('YYYY-MM-DD HH:mm:ss')}
 							td 
 								if(!report.versionControl||report.versionControl=='TFS')
-									a.btn-edit-tfs(href='#',type="button",data-toggle="modal",data-target="#editerTFSModal",data-dir='#{report.dir}') 修改
+									a.btn-edit-tfs(href='#',type="button",data-toggle="modal",data-target="#editerTFSModal",data-projid='#{report.projid}') 修改
 								if(report.versionControl=='GIT')
-									a.btn-edit-git(href='#',type="button",data-toggle="modal",data-target="#editerGITModal",data-dir='#{report.dir}') 修改
-								a.btn-remove.ml10(href='#',data-dir='#{report.dir}') 删除
+									a.btn-edit-git(href='#',type="button",data-toggle="modal",data-target="#editerGITModal",data-projid='#{report.projid}') 修改
+								a.btn-remove.ml10(href='#',data-projid='#{report.projid}') 删除
 	.modal.fade(id="registerTFSModal",tabindex="-1",role="dialog",aria-labelledby="registerTFSModalLabel",aria-hidden="true")
 		.modal-dialog(role="document")
 			.modal-content

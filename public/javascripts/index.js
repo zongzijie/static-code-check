@@ -44,7 +44,7 @@
             });
             //修改tfs检查
             $('body').on("click", ".btn-edit-tfs", function(e) {
-                me.getProject(e.target.dataset.dir).then(function(project) {
+                me.getProject(e.target.dataset.projid).then(function(project) {
                     project.createdTime=moment(project.createdTime).format('YYYY-MM-DD HH:mm:ss')
                     me._fillForm($('#editer_tfs_form'),project);
                 });
@@ -73,7 +73,7 @@
             });
             //修改git检查
             $('body').on("click", ".btn-edit-git", function(e) {
-                me.getProject(e.target.dataset.dir).then(function(project) {
+                me.getProject(e.target.dataset.projId).then(function(project) {
                     project.createdTime=moment(project.createdTime).format('YYYY-MM-DD HH:mm:ss')
                     me._fillForm($('#editer_git_form'),project);
                 });
@@ -126,11 +126,11 @@
         },
         /**
          * 获取项目信息
-         * @param  {String} dir 文件夹名称
+         * @param  {String} projid 项目Id
          * @return {Promise}     承诺对象
          */
-        getProject: function(dir) {
-            return $.get('/register/project/' + dir);
+        getProject: function(projid) {
+            return $.get('/register/project/' + projid);
         },
         /**
          * 保存
