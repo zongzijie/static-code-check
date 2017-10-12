@@ -1,0 +1,13 @@
+form#register_git_form
+	.form-row
+		.form-group.col-md-6
+			label.col-form-label(for="inputProjName") 项目名称
+			input.form-control(type='text',name='projName',id="inputProjName",placeholder="请填写项目中文名称")
+			input.form-control(type='hidden',name='versionControl' value='GIT')
+		.form-group.col-md-6
+			label.col-form-label(for="inputCreatedTime") 创建时间
+			input.form-control(readonly,type='text',name='createdTime',id='inputCreatedTime')
+	.form-row
+		.form-group.col-md-12
+			label.col-form-label(for='inputPath') 源代码地址
+			input.form-control(type='text',name='path',id='inputPath',placeholder='请填写源代码所在的目录地址')
