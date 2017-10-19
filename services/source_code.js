@@ -32,7 +32,7 @@ function clone(project) {
  */
 function pull(dir, versionControl) {
     var dfd = Q.defer();
-    if (!versionControl||versionControl == 'TFS') {
+    if (versionControl == 'TFS') {
         exec("git --git-dir=source_code/" + dir + "/.git tf pull", function(err, stdout, stderr) {
             console.log(stderr);
             dfd.resolve(err, stdout, stderr);
