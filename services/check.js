@@ -11,7 +11,7 @@ var source_code = require('../services/source_code');
  * 开始检查
  * @param  {Object} option 选项
  * @param  {String} option.dir 文件夹名称
- * @param  {String} option.projName 项目名称
+ * @param  {String} option.name 项目名称
  * @return {Promise}     [description]
  */
 function start(option) {
