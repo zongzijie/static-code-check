@@ -29,7 +29,7 @@ router.get('/', function(req, res, next) {
         });
         return Promise.all(ajaxArry);
     }).then(function(reports) {
-        res.render('index', { title: '明源代码检查平台', reports: reports });
+        res.render('index', { title: '代码检查平台', reports: reports });
     });
 });
 /* GET index-row html. */
