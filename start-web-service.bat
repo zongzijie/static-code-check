@@ -1,1 +1,1 @@
-net start static-code-check
+net start static-code-check-web

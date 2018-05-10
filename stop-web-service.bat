@@ -1,1 +1,1 @@
-net stop static-code-check
+net stop static-code-check-web

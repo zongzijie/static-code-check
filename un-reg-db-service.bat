@@ -1,1 +1,1 @@
-sc delete MongoDB
+sc delete static-code-check-db

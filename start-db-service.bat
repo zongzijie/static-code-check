@@ -1,1 +1,1 @@
-net start MongoDB
+net start static-code-check-db
