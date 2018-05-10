@@ -1,0 +1,1 @@
+node nw-uninstall.js
