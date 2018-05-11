@@ -34,7 +34,7 @@
     "ee-first": "^1.1.1",
     "encodeurl": "^1.0.1",
     "escape-html": "^1.0.3",
-    "eslint": "^4.6.1",
+    "eslint": "^4.19.1",
     "etag": "^1.8.0",
     "express": "^4.15.4",
     "finalhandler": "^1.0.4",

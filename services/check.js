@@ -3,6 +3,7 @@ var Result = require('../models/result');
 var Report = require('../models/report');
 var Eslintrc = require('../.eslintrc.js');
 var project = require('../services/project');
+var path = require('path');
 var moment = require('moment');
 var rule_name = require('../rules-name.js');
 var _ = require('underscore');
@@ -19,26 +20,42 @@ function start(option) {
     return project.one4dir(option.dir).then(function(project) {
         //根据项目信息，下载最新代码
         return source_code.pull(option.dir, project.versionControl).then(function() {
+            console.log('start Eslint');
+            console.log(path.join(__dirname, '../source_code/') + option.dir);
+            var report = {};
+            try {
 
-            var cli = new CLIEngine(Eslintrc);
-            //对指定文件夹进行代码扫描
-            var report = cli.executeOnFiles(['source_code/' + option.dir]);
+                var cli = new CLIEngine(Eslintrc);
+                //对指定文件夹进行代码扫描
+                report = cli.executeOnFiles([path.join(__dirname, '../source_code/') + option.dir]);
+            } catch (e) {
+                console.log(e);
+            }
             var report_id;
+            console.log('end Eslint');
             //查询上一次检查结果，对比并记录差异
             return reports(option.dir).then(function(oldReport) {
+
+                console.log('end reports');
+                //console.log('report');
+                //console.log(report);
                 //创建报告对象
                 return Report.create({
                     projName: option.name,
                     dir: option.dir,
                     createdTime: new Date(),
                     errorCount: report.errorCount,
-                    errorDiff: oldReport ? report.errorCount - oldReport.errorCount : 0,
+                    errorDiff: oldReport &&oldReport.errorCount ? report.errorCount - oldReport.errorCount : 0,
                     warningCount: report.warningCount,
-                    warningDiff: oldReport ? report.warningCount - oldReport.warningCount : 0,
+                    warningDiff: oldReport &&oldReport.warningCount ? report.warningCount - oldReport.warningCount : 0,
                     fixableErrorCount: report.fixableErrorCount,
                     fixableWarningCount: report.fixableWarningCount
+                },function(err){
+                console.log("err:");
+                console.log(err);
                 });
             }).then(function(reportData) {
+                console.log('end reportCreate');
                 report_id = reportData._id;
 
                 //用来缓存因超过100条message限制切割出来的新result

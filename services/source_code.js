@@ -10,15 +10,14 @@ var Q = require('q');
 function clone(project) {
     var dfd = Q.defer();
     if (project.versionControl == 'TFS') {
-        exec("git tf clone " + project.host + "/" + project.collectionName + " " + project.path + " source_code/" + project._id, function(err, stdout, stderr) {
-
-            console.log(stderr);
+        exec("git tf clone " + project.host + "/" + project.collectionName + " " + project.path + " "+path.join(__dirname, '../source_code/') + project._id, function(err, stdout, stderr) {
+            console.log(err);
             dfd.resolve(err, stdout, stderr);
         });
     }
     if (project.versionControl == 'GIT') {
-        exec("git clone " + project.path + " source_code/" + project._id, function(err, stdout, stderr) {
-            console.log(stderr);
+        exec("git clone " + project.path + " "+path.join(__dirname, '../source_code/') + project._id, function(err, stdout, stderr) {
+            console.log(err);
             dfd.resolve(err, stdout, stderr);
         });
     }
@@ -33,14 +32,17 @@ function clone(project) {
 function pull(dir, versionControl) {
     var dfd = Q.defer();
     if (versionControl == 'TFS') {
-        exec("git --git-dir=source_code/" + dir + "/.git tf pull", function(err, stdout, stderr) {
-            console.log(stderr);
+        exec("git --git-dir="+path.join(__dirname, '../source_code/') + dir + "/.git tf pull", function(err, stdout, stderr) {
+            console.log("err:"+err);
+            console.log("stdout:"+stdout);
+            console.log("stderr:"+stderr);
+            console.log("pull end");
             dfd.resolve(err, stdout, stderr);
         });
     }
     if (versionControl == 'GIT') {
-        exec("git --git-dir=source_code/" + dir + "/.git pull", function(err, stdout, stderr) {
-            console.log(stderr);
+        exec("git --git-dir="+path.join(__dirname, '../source_code/') + dir + "/.git pull", function(err, stdout, stderr) {
+            console.log(err);
             dfd.resolve(err, stdout, stderr);
         });
     }
@@ -53,8 +55,8 @@ function pull(dir, versionControl) {
  */
 function remove(dir) {
     var dfd = Q.defer();
-    exec("rm -rf source_code/" + dir , function(err, stdout, stderr) {
-        console.log(stderr);
+    exec("rm -rf "+path.join(__dirname, '../source_code/') + dir , function(err, stdout, stderr) {
+        console.log(err);
         dfd.resolve(err, stdout, stderr);
     });
     return dfd.promise;
