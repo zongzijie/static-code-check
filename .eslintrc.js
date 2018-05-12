@@ -1,13 +1,14 @@
 module.exports = {
     //全局变量，将项目中使用到的全局变量在这里枚举
     //将会跳过这些变量的未定义检查
-    "globals": {
-        "define": true, //zepto
-        "window": true
-    },
+    // "globals": {
+    //     "define": true, //zepto
+    //     "window": true
+    // },
     //环境
     "env": {
-        "node": true
+        "browser": true,//浏览器环境中的全局变量
+        "amd": true//将 require() 和 define() 定义为像 amd 一样的全局变量。
     },
     //规则
     "rules": {
