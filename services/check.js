@@ -21,11 +21,17 @@ function start(option) {
         //根据项目信息，下载最新代码
         return source_code.pull(option.dir, project.versionControl).then(function() {
             console.log('start Eslint');
-            console.log(path.join(__dirname, '../source_code/') + option.dir);
+            var codeDir = path.join(__dirname, '../source_code/') + option.dir;
+            console.log(codeDir);
             var report = {};
             try {
-
-                var cli = new CLIEngine(Eslintrc);
+                var eslintrc = _.clone(Eslintrc);
+                eslintrc.ignore = true;
+                //Eslintrc.ignorePath=path.join(codeDir, '_3rd');
+                if (project.ignorePattern) {
+                    eslintrc.ignorePattern = project.ignorePattern.split(';');
+                }
+                var cli = new CLIEngine(eslintrc);
                 //对指定文件夹进行代码扫描
                 report = cli.executeOnFiles([path.join(__dirname, '../source_code/') + option.dir]);
             } catch (e) {
@@ -45,14 +51,14 @@ function start(option) {
                     dir: option.dir,
                     createdTime: new Date(),
                     errorCount: report.errorCount,
-                    errorDiff: oldReport &&oldReport.errorCount ? report.errorCount - oldReport.errorCount : 0,
+                    errorDiff: oldReport && oldReport.errorCount ? report.errorCount - oldReport.errorCount : 0,
                     warningCount: report.warningCount,
-                    warningDiff: oldReport &&oldReport.warningCount ? report.warningCount - oldReport.warningCount : 0,
+                    warningDiff: oldReport && oldReport.warningCount ? report.warningCount - oldReport.warningCount : 0,
                     fixableErrorCount: report.fixableErrorCount,
                     fixableWarningCount: report.fixableWarningCount
-                },function(err){
-                console.log("err:");
-                console.log(err);
+                }, function(err) {
+                    console.log("err:");
+                    console.log(err);
                 });
             }).then(function(reportData) {
                 console.log('end reportCreate');

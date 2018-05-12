@@ -11,3 +11,7 @@ form#register_git_form
 		.form-group.col-md-12
 			label.col-form-label(for='inputPath') 源代码地址
 			input.form-control(type='text',name='path',id='inputPath',placeholder='请填写源代码所在的目录地址')
+	.form-row
+		.form-group.col-md-12
+			label.col-form-label(for='inputIgnorePattern') 排除文件
+			input.form-control(type='text',name='ignorePattern',id='inputIgnorePattern',placeholder='dir/;file.js;')

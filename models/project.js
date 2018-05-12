@@ -15,7 +15,9 @@ var schema=new mongoose.Schema( {
             //源代码地址
             path:String,
             //状态
-            state:String
+            state:String,
+            //排除的文件和文件夹
+            ignorePattern:String
         });
 var Resutl=mongoose.model('project',schema);
 module.exports=Resutl;
